@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function makeRequset()
+        {
+            ajax=createAjaxObject();
+            ajax.onreadystatechange=updatePage;
+            var url="http://localhost:9000/getname?empid="+document.f1.empid.value;
+             alert(url)
+             ajax.open('GET',url,true);
+             
+             ajax.send("");
+             
+        }
+        function updatePage()
+        {
+            alert(ajax.readyState);
+            if(ajax.readyState == 4)
+            {
+                document.getElementById("msg").innerHTML = ajax.responseText;
+            }
+        }
+        function createAjaxObject()
+        {
+            try {
+                var ajax=new XMLHttpRequest();
+                return ajax;
+            } catch (e) {
+                try {
+                    var ajax=new ActiveXObject("Microsoft");
+                    return ajax;
+                } catch (e) {
+                    alaert("error")
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <form name="f1">
+        Enter empid : 
+        <input type="number" name="empid" />
+        <br/>
+        <input type="button" value="Greet" 
+          onclick="makeRequset()" />
+    </form> 
+    <div id="msg"></div>
+</body>
+</html>
